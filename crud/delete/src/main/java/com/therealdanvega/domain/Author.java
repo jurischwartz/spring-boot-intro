@@ -1,8 +1,11 @@
 package com.therealdanvega.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Author {
@@ -10,8 +13,11 @@ public class Author {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@NotEmpty
 	private String firstName;
+	@NotEmpty
 	private String lastName;
+	@NotEmpty
 	private String email;
 
 	@SuppressWarnings("unused")

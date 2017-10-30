@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"
+	  xmlns:th="http://www.thymeleaf.org"
+	  layout:decorator="layouts/main" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+	<title>List Authors</title>
+</head>
+<body>
+		
+	<div layout:fragment="content">
+
+		<h2>Authors</h2>
+
+		<div th:if="${message}" class="alert alert-success" role="alert">
+			<p th:text="${message}">success message</p>
+		</div>
+
+		<table class="table table-striped">
+			<thead> 
+				<tr> 
+					<th>First Name</th>
+					<th>Last Name</th> 
+					<th>Email</th>
+					<th>Nr of Posts</th>
+					<th>Link to Posts</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr> 
+			</thead>
+			<tbody>
+				<tr th:each="author, iterationStatus : ${authors}">
+					<td th:text="${author.firstName}">First Name</td>
+					<td th:text="${author.lastName}">Last Name</td>
+					<td th:text="${author.email}">Email Address</td>
+					<td th:text="${postsCountForAuthor['__${author.id}__']}">Nr of Posts</td>
+					<td><a th:if="${postsCountForAuthor['__${author.id}__'] > 0}" th:href="|/posts/byAuthor/${author.id}|">Posts By Author</a></td>
+					<td><a href="#" th:href="@{/admin/author/edit/} + ${author.id}">Edit</a></td>
+					<td><a href="#" th:href="@{/admin/author/delete/} + ${author.id}">Delete</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<a th:href="@{/admin/author/create}">Add New Author</a>
+		<br/><br/>
+
+		<p th:if="${authors.size() == 0}">
+		<div class="alert alert-warning" role="alert">No Authors Found.</div>
+		</p>
+
+	</div>
+		
+</body>
+</html>
